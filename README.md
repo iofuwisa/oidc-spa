@@ -5,3 +5,10 @@ This repository contains a vanilla Single-Page Application (SPA) that handles us
 You can find the handbook here: https://auth0.com/resources/ebooks/the-openid-connect-handbook
 
 Have fun!
+
+## Useful Commands
+
+```bash
+# running a server with no cache (helps on dev)
+http-server . -p 3000 -c-1
+```

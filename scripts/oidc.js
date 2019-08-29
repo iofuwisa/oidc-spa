@@ -7,11 +7,16 @@ const clientId = 'bKikeccK4xDZvq5cssoBlw6Jtq7HPHFH';
 const scope = 'openid profile email read:to-dos';
 const redirectURI = 'http://localhost:3000/#callback';
 const codeChallengeMethod = 'S256';
-
 const responseType = 'code';
+
 // code verifier and challenge for the PKCE flow
 let codeVerifier = sessionStorage.getItem('codeVerifier') || '';
 let codeChallenge = '';
+
+// user data
+let idToken = '';
+let accessToken = '';
+let profile = '';
 
 function createRandomString() {
   const charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-_~.';
@@ -52,13 +57,7 @@ async function login() {
 }
 
 function isAuthenticated() {
-  return false;
-}
-
-function getUser() {
-  return {
-
-  }
+  return idToken !== '';
 }
 
 async function handleRedirectCallback() {
@@ -81,6 +80,9 @@ async function handleRedirectCallback() {
   });
 
   const responseBody = await response.json();
+  accessToken = responseBody.access_token;
+  idToken = responseBody.id_token;
+  console.log(idToken);
 }
 
 function getQueryParams() {
@@ -92,4 +94,16 @@ function getQueryParams() {
       value: keyValue[1]
     }
   });
+}
+
+function getAccessToken() {
+  return accessToken;
+}
+
+function getIdToken() {
+  return idToken;
+}
+
+function getUser() {
+  return profile;
 }

@@ -1,5 +1,5 @@
 (async function() {
-  const expensesLink = document.getElementById('expenses-link');
+  const toDosLink = document.getElementById('to-dos-link');
   const profilePicture = document.getElementById('profile-picture');
   const userFullname = document.getElementById('user-fullname');
   const logInButton = document.getElementById('log-in');
@@ -10,12 +10,12 @@
   };
 
   if (isAuthenticated()) {
-    const user = await getUser();
+    const user = getUser();
     profilePicture.src = user.picture;
     userFullname.innerText = user.name;
 
     logOutButton.style.display = 'inline-block';
-    expensesLink.style.display = 'inline-block';
+    toDosLink.style.display = 'inline-block';
   } else {
     logInButton.style.display = 'inline-block';
   }

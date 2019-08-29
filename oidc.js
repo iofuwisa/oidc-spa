@@ -82,7 +82,25 @@ async function handleRedirectCallback() {
   const responseBody = await response.json();
   accessToken = responseBody.access_token;
   idToken = responseBody.id_token;
-  profile = jwt_decode(idToken);
+  profile = validateIdToken(idToken);
+}
+
+function validateIdToken(idToken) {
+  const decodedToken = jwt_decode(idToken);
+  // fetch ID token details
+  const {
+    aud: audience, exp: expirationDate, iss: issuer
+  } = decodedToken;
+
+  const currentTime = Math.floor(Date.now() / 1000);
+
+  // validate ID tokens
+  if (audience !== clientId || expirationDate < currentTime || issuer !== `https://${oidcProvider}/`) {
+    throw Error();
+  }
+
+  // return the decoded token
+  return decodedToken;
 }
 
 function getQueryParams() {

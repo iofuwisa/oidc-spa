@@ -82,7 +82,7 @@ async function handleRedirectCallback() {
   const responseBody = await response.json();
   accessToken = responseBody.access_token;
   idToken = responseBody.id_token;
-  console.log(idToken);
+  profile = jwt_decode(idToken);
 }
 
 function getQueryParams() {

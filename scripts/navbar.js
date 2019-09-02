@@ -10,7 +10,7 @@
   };
 
   if (isAuthenticated()) {
-    const user = getUser();
+    const user = getProfile();
     profilePicture.src = user.picture;
     userFullname.innerText = user.name;
 
